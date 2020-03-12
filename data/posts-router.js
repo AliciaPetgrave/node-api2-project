@@ -3,6 +3,9 @@ const Posts = require("./db")
 
 const router = express.Router()
 
+const environment = process.env
+const port = process.env.PORT || 5002
+
 //post request
 
 router.post('/', (req, res) => {
@@ -52,7 +55,7 @@ router.post('/:id/comments', (req, res) => {
 router.get('/', (req, res) => {
     Posts.find()
     .then((posts) => {
-        res.status(200).json(posts)
+        res.status(200).json({motd:process.env.MOTD, environment, port, posts})
     })
     .catch (err => {
         console.log(err)
